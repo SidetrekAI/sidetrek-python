@@ -32,7 +32,8 @@ class ExportDBTProc:
     - The file to write the dbt code to.
 
     Example usage:
-    #|export_dbt models/my_model.sql
+    - #|export_dbt: defaults to exporting to the same directory and file name as the notebook
+    - #|export_dbt models/my_model.sql
     """
 
     def begin(self):
@@ -41,7 +42,9 @@ class ExportDBTProc:
     # exp_to_filepath is the args passed to the export_dbt directive
     def _export_dbt_(self, cell, exp_to_filepath=None):
         if exp_to_filepath is None:
-            raise ValueError(
-                "Please provide a filepath to export the dbt code to (i.e. #|export_dbt path/to/dbt_file.sql)."
-            )
-        self.file_content[exp_to_filepath] = cell
+            # raise ValueError(
+            #     "Please provide a filepath to export the dbt code to (i.e. #|export_dbt path/to/dbt_file.sql)."
+            # )
+            self.file_content[__file__.replace(".ipynb", ".sql")] = cell
+        else:
+            self.file_content[exp_to_filepath] = cell            
