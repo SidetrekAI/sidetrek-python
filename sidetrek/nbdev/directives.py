@@ -42,9 +42,7 @@ class ExportDBTProc:
     # exp_to_filepath is the args passed to the export_dbt directive
     def _export_dbt_(self, cell, exp_to_filepath=None):
         if exp_to_filepath is None:
-            # raise ValueError(
-            #     "Please provide a filepath to export the dbt code to (i.e. #|export_dbt path/to/dbt_file.sql)."
-            # )
-            self.file_content[__file__.replace(".ipynb", ".sql")] = cell
-        else:
-            self.file_content[exp_to_filepath] = cell            
+            raise ValueError(
+                "Please provide a filepath to export the dbt code to (i.e. #|export_dbt path/to/dbt_file.sql)."
+            )
+        self.file_content[exp_to_filepath] = cell            
